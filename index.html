@@ -1,23 +1,486 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <style>
+    /* Reset and Typography */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.8;
+      color: #333;
+      background: #f4f7f9; /* Soft background color */
+    }
+    header, nav, section, footer {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto; /* Center alignment */
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    /* Header Styles */
+    header {
+      padding: 40px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #2a9d8f 0%, #264653 100%); /* Blue-green gradient for trustworthiness */
+      color: white;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+    header p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+    /* Navigation Styles */
+    nav {
+      background: #2a9d8f;
+      text-align: center;
+      padding: 18px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      margin-bottom: 30px;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 18px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.05rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+    nav a:hover {
+      background-color: #264653;
+      text-decoration: none;
+    }
+    /* Section Headers */
+    h2 {
+      border-bottom: 3px solid #2a9d8f;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      color: #264653;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    h3 {
+      color: #2a9d8f;
+      margin-top: 25px;
+      font-size: 1.4rem;
+    }
+    /* Card Styles (for content sections) */
+    .service-card {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    /* Call to Action Button */
+    .cta {
+      display: inline-block;
+      background-color: #e63946; /* Warm call to action color */
+      color: white;
+      padding: 15px 35px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .cta:hover {
+      background-color: #c4303d;
+    }
+    /* Form Styles */
+    form {
+      background: #f9f9f9;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+    form input[type="text"],
+    form input[type="number"],
+    form input[type="email"],
+    form input[type="tel"],
+    form select,
+    form textarea {
+      width: calc(100% - 22px); /* Adjust for padding */
+      padding: 12px;
+      margin-top: 4px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    form button {
+      margin-top: 20px;
+      width: 100%;
+      cursor: pointer;
+      border: none;
+      font-size: 1.1rem;
+    }
+    /* FAQ Section Styles */
+    dl.faq dt {
+      font-weight: 700;
+      margin-top: 20px;
+      cursor: pointer;
+      color: #2a9d8f;
+      font-size: 1.1rem;
+      padding: 10px;
+      background: #e9f5f5;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    dl.faq dt:hover {
+      background-color: #d8eded;
+    }
+    dl.faq dd {
+      margin-left: 0;
+      margin-top: 10px;
+      padding: 15px;
+      border-left: 3px solid #e63946;
+      background: #fcfcfc;
+      color: #555;
+      font-size: 0.95rem;
+    }
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: 700;
+      color: #333;
+    }
+    /* Additional formatting for readability */
+    p {
+      text-align: justify;
+      margin-bottom: 15px;
+    }
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    strong {
+      color: #e63946;
+    }
+    .text-highlight {
+      background-color: #ffeb3b;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+  </style>
+
+  <!-- JSON-LD Schema for Product and FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "아르카나 종합 보험",
+    "image": "https://www.yourdomain.kr/images/arcana-insurance-logo.png",
+    "description": "2026년 아르카나 보험료 견적을 정확하게 비교해보세요. 가입 조건별 예상 비용, 보장 내용, 장단점 분석, 저렴한 다이렉트 가입 방법까지 상세하게 안내합니다.",
+    "brand": {
+      "@type": "Brand",
+      "name": "아르카나 보험"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "KRW",
+      "price": "100000",
+      "priceValidUntil": "2026-12-31",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "아르카나 보험료 비교센터"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "125"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "아르카나 보험료는 어떻게 결정되나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "아르카나 보험료는 연령, 성별, 직업, 가입 시 선택한 특약의 종류와 보장 금액, 갱신형/비갱신형 여부 등 다양한 요인에 따라 달라집니다. 특히 2026년 기준으로는 개인별 건강 등급을 반영한 보험료 할인 제도가 도입되어 개별 견적이 중요합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "아르카나 보험의 장점과 단점은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "장점으로는 종합적인 보장 구성이 가능하고, 다이렉트 가입 시 <a href='#다이렉트가입'>저렴한 보험료</a>를 기대할 수 있습니다. 단점으로는 복잡한 특약 구성으로 인해 초기 가입 시 어려움을 느낄 수 있으며, 갱신형 선택 시 <a href='#갱신형_비갱신형'>보험료가 인상</a>될 가능성이 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "아르카나 보험료를 저렴하게 가입하는 방법이 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "가장 저렴한 방법은 <a href='#다이렉트가입'>다이렉트 보험</a>으로 가입하는 것입니다. 설계사 수수료가 없어 평균 10~20%가량 보험료 절감이 가능합니다. 또한 불필요한 특약을 제외하고, 보장 기간을 합리적으로 설정하는 것이 중요합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "아르카나 보험료 비교를 어디서 할 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "다양한 보험사 상품을 한눈에 비교할 수 있는 전문 비교 사이트나, 당사 <a href='#무료견적신청'>무료 견적 폼</a>을 통해 전문가의 맞춤 비교 견적을 받아보는 것이 좋습니다."
+        }
+      }
+    ]
+  }
+  </script>
+
+</head>
+<body>
+
+<header id="상단">
+  <h1>아르카나 보험료: 2026년 예상 견적, 평균, 장단점 완벽 분석</h1>
+  <p>복잡한 아르카나 보험, <strong class="text-highlight">가입 조건별 예상 비용</strong>과 <strong class="text-highlight">숨겨진 장단점</strong>을 지금 바로 확인하세요!</p>
+  <a href="#무료견적신청" class="cta">무료 견적 비교 신청하기</a>
+</header>
+
+<nav>
+  <a href="#서비스">아르카나 보험 소개</a>
+  <a href="#보장내용">핵심 보장 분석</a>
+  <a href="#보험료비교">보험료 비교 전략</a>
+  <a href="#고객후기">고객 후기</a>
+  <a href="#무료견적신청">무료 견적 신청</a>
+  <a href="#자주묻는질문">FAQ</a>
+</nav>
+
+<section id="서비스" aria-label="아르카나 보험 소개">
+  <h2>아르카나 보험이란? 가입 전 필수 체크리스트</h2>
+  <div class="service-card">
+    <h3>1. 아르카나 보험, 왜 2026년 핵심 키워드인가?</h3>
+    <p>아르카나 보험은 최근 급증하는 1인 가구와 재택근무 트렌드에 맞춰 설계된 종합 보장 상품입니다. 2026년 최신 통계에 따르면, 기존의 정형화된 보험 상품으로는 예측 불가능한 생활 위험에 대응하기 어렵다는 인식이 높아지면서 개인 맞춤형 특약을 중심으로 한 아르카나 보험의 수요가 폭발적으로 증가했습니다. <a href="https://namu.wiki/w/보험" target="_blank">보험의 정의 및 유형 (출처: 나무위키)</a></p>
+    <p>특히 "아르카나 보험료" 검색량이 증가한 이유는 갱신형과 비갱신형의 장단점을 명확히 비교하고, 합리적인 금액으로 가입하려는 소비자들이 많아졌기 때문입니다. 저희는 <strong class="text-highlight">아르카나 보험료 평균</strong>을 산출할 때, 연령별, 직업별 데이터를 세밀하게 분석하여 고객님께 최적화된 정보를 제공합니다.</p>
+  </div>
+  <div class="service-card">
+    <h3>2. 아르카나 보험료를 결정하는 핵심 요소 5가지</h3>
+    <ol>
+      <li><strong>연령 및 성별:</strong> 보험료 산정의 기본이 됩니다. 젊은 층은 <strong class="text-highlight">저렴한 보험료</strong>로 가입 가능하지만, 나이가 들수록 보험료가 상승합니다.</li>
+      <li><strong>갱신형 vs 비갱신형 선택:</strong> 갱신형은 초기 보험료가 <strong class="text-highlight">저렴한곳</strong>이지만, 갱신 시점마다 보험료가 인상됩니다. 비갱신형은 초기 보험료는 높지만, 납입 기간 동안 일정 금액을 유지합니다.</li>
+      <li><strong>특약 구성:</strong> 아르카나 보험의 핵심입니다. 필수 특약과 선택 특약을 어떻게 조합하느냐에 따라 <strong class="text-highlight">아르카나 보험료 금액</strong>이 크게 달라집니다.</li>
+      <li><strong>납입 기간 및 만기:</strong> 납입 기간을 짧게 설정하면 월 보험료는 비싸지지만, 총 납입 금액은 줄어들 수 있습니다.</li>
+      <li><strong>다이렉트 vs 설계사:</strong> 다이렉트 가입은 설계사 수수료가 없어 <strong class="text-highlight">가장 싼곳</strong>을 찾는 소비자에게 유리합니다.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="보장내용" aria-label="핵심 보장 분석">
+  <h2>아르카나 보험 핵심 보장 분석 및 추천 특약</h2>
+  <div class="service-card">
+    <p>아르카나 보험은 기존 보험의 복잡함을 줄이고, 실질적인 위험 보장에 집중한 상품입니다. 2026년 들어 핵심 보장으로 분류되는 항목을 상세히 분석하여 <strong class="text-highlight">아르카나 보험 장점</strong>을 극대화하는 방법을 알아보겠습니다.</p>
+    <h3>필수 핵심 특약 (Standard Plan)</h3>
+    <ul>
+      <li><strong>상해/질병 사망 및 후유장해:</strong> 기본적인 보장입니다. <strong class="text-highlight">아르카나 보험 보장</strong>의 근간을 이룹니다.</li>
+      <li><strong>암/뇌혈관/심장질환 진단비:</strong> 3대 중대 질병 진단비는 필수적으로 가입해야 하는 항목입니다. <a href="https://www.fss.or.kr/" target="_blank">금융감독원 (FSS)</a>의 권장 사항을 참고하여 충분한 금액을 설정하는 것이 중요합니다.</li>
+    </ul>
+    <h3>추천 선택 특약 (Premium Plan)</h3>
+    <ul>
+      <li><strong>생활 배상 책임 특약:</strong> 누수나 반려동물 사고 등 일상생활에서 발생할 수 있는 배상 책임에 대비합니다.</li>
+      <li><strong>골절/화상 진단비:</strong> 활동량이 많은 경우 <strong class="text-highlight">가성비</strong>가 높은 특약입니다.</li>
+      <li><strong>특정 질병 입원 일당:</strong> 장기 입원 시 생활비를 보전해주는 중요한 보장입니다.</li>
+    </ul>
+    <p>이러한 특약 구성에 따라 <strong class="text-highlight">아르카나 보험료</strong>는 천차만별이 되므로, 자신의 생활 습관과 건강 상태를 정확히 진단하고 필요한 보장만 선택하는 것이 합리적입니다.</p>
+  </div>
+
+  <div class="service-card">
+    <h3>[표] 갱신형 vs 비갱신형 보험료 비교</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>갱신형</th>
+          <th>비갱신형</th>
+          <th><strong class="text-highlight">아르카나 보험료</strong> 측면 장단점</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>초기 보험료</td>
+          <td><strong style="color: green;">저렴함</strong> (다이렉트 기준 3~5만원대)</td>
+          <td>비쌈 (다이렉트 기준 5~8만원대)</td>
+          <td>초기 비용 부담이 적음</td>
+        </tr>
+        <tr>
+          <td>보험료 변동</td>
+          <td><strong style="color: red;">갱신 시 인상</strong> (주기적)</td>
+          <td><strong style="color: green;">변동 없음</strong> (납입 기간 동안 고정)</td>
+          <td>장기적으로 총 납입 비용이 비쌀 수 있음</td>
+        </tr>
+        <tr>
+          <td>장점</td>
+          <td>단기적으로 <strong class="text-highlight">저렴한 보험료</strong>, 상품 변경 용이</td>
+          <td>총 납입 보험료 예측 가능, 갱신 부담 없음</td>
+          <td><a href="#무료견적신청">무료 견적 신청</a> 시 총액 비교 필수</td>
+        </tr>
+        <tr>
+          <td>단점</td>
+          <td>장기적으로 총 납입금액 증가 가능성 높음</td>
+          <td>초기 보험료 부담이 큼</td>
+          <td><strong class="text-highlight">아르카나 보험료</strong> 견적 비교 시 가장 중요한 선택 기준</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="보험료비교" aria-label="보험료 비교 전략">
+  <h2>아르카나 보험료 견적 비교: 저렴하게 가입하는 5가지 팁</h2>
+  <div class="service-card">
+    <p>많은 소비자들이 <strong class="text-highlight">아르카나 보험료 얼마</strong>인지 궁금해하며 무작정 <strong class="text-highlight">싼곳</strong>을 찾으려 합니다. 하지만 단순히 가격만 보고 가입할 경우, 실제 필요할 때 보장을 받지 못하는 <strong class="text-highlight">단점</strong>이 발생할 수 있습니다. 2026년 기준으로 합리적인 <strong class="text-highlight">아르카나 보험 견적</strong>을 받는 방법을 알려드립니다.</p>
+    <div class="service-card">
+      <h3>1. 다이렉트 가입과 설계사 가입의 차이점</h3>
+      <p><strong>다이렉트 가입:</strong> 보험사 홈페이지나 비교 사이트를 통해 <strong class="text-highlight">내돈내산</strong>으로 직접 가입하는 방식입니다. 설계사 수수료가 없어 <strong class="text-highlight">평균 10~20% 저렴한 보험료</strong>로 가입할 수 있습니다. <a href="https://www.e-insmarket.or.kr/" target="_blank">보험다모아 (출처: 보험협회)</a> 등 공신력 있는 사이트에서 <strong class="text-highlight">아르카나 보험료 비교</strong>가 가능합니다.</p>
+      <p><strong>설계사 가입:</strong> 전문가의 컨설팅을 통해 맞춤형 설계가 가능합니다. <strong class="text-highlight">아르카나 보험</strong>의 복잡한 특약을 이해하기 어렵다면 설계사를 통한 가입이 <strong class="text-highlight">장점</strong>이 될 수 있습니다. 하지만 <strong class="text-highlight">보험료 가격</strong>이 다이렉트보다 높다는 <strong class="text-highlight">단점</strong>이 있습니다.</p>
+    </div>
+    <div class="service-card">
+      <h3>2. 숨은 할인 혜택 찾기: 건강 등급 및 우량 할인</h3>
+      <p>최근 보험업계에서는 건강한 가입자에게 <strong class="text-highlight">보험료 할인</strong> 혜택을 제공합니다. 흡연 여부나 BMI 지수, 혈압 등을 기준으로 <strong class="text-highlight">우량체 할인</strong>을 적용받을 수 있으며, 일부 아르카나 보험 상품은 건강 관리 앱 연동을 통해 <strong class="text-highlight">보험료 추가 할인</strong>을 제공합니다. <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=246604" target="_blank">보험업법 시행령 (출처: 법제처)</a>에 따라 이러한 할인 제도는 투명하게 운영됩니다.</p>
+    </div>
+    <div class="service-card">
+      <h3>3. 2026년 예상 보험료 인상 요인 파악</h3>
+      <p>2026년에는 보험료 산출 시 적용되는 위험률이 일부 변경될 예정입니다. 특히 실손보험과 연동된 특약의 경우 <strong class="text-highlight">보험료 인상</strong>이 예상되므로, 비갱신형 가입을 고려 중이라면 가급적 연내에 <strong class="text-highlight">아르카나 보험료 견적</strong>을 받아보는 것이 좋습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section id="고객후기" aria-label="고객 후기">
+  <h2>실제 아르카나 보험 가입 후기: 내돈내산 고객 사례</h2>
+  <div class="service-card">
+    <h3>[후기 1] 30대 직장인 A씨의 다이렉트 가입 후기</h3>
+    <p>“여러 <strong class="text-highlight">아르카나 보험 비교</strong> 사이트를 통해 견적을 받아봤습니다. <strong class="text-highlight">아르카나 보험료 순위</strong>를 따져보니 다이렉트가 가장 저렴했습니다. 복잡한 내용은 FAQ나 고객센터를 통해 해결할 수 있었고, <strong class="text-highlight">월 5만원대</strong>로 든든한 보장을 구성할 수 있었습니다. <strong class="text-highlight">아르카나 보험 후기</strong>를 찾아보면서 느낀 점은, 무조건 설계사를 통할 필요는 없다는 것입니다.”</p>
+  </div>
+  <div class="service-card">
+    <h3>[후기 2] 40대 주부 B씨의 비갱신형 가입 후기</h3>
+    <p>“초기 <strong class="text-highlight">아르카나 보험료</strong>는 조금 부담스러웠지만, 갱신될 때마다 오르는 보험료가 싫어서 비갱신형을 선택했습니다. <strong class="text-highlight">아르카나 보험</strong>의 <strong class="text-highlight">장단점</strong>을 신중하게 비교한 결과, 장기적으로는 비갱신형이 이득이라고 판단했습니다. <a href="https://ko.wikipedia.org/wiki/보험" target="_blank">보험의 역사와 기능 (출처: 위키피디아)</a>를 읽으며 보험의 기본 원리를 이해하는 데 도움이 되었습니다.”</p>
+  </div>
+  <div class="service-card">
+    <h3>[후기 3] 20대 사회 초년생 C씨의 보장 분석 후기</h3>
+    <p>“사회 초년생이라 <strong class="text-highlight">아르카나 보험료</strong>가 부담스러웠는데, 핵심 보장만 골라 담아 <strong class="text-highlight">저렴한 보험료</strong>로 가입했습니다. <strong class="text-highlight">아르카나 보험 가격</strong>을 낮추는 대신 보장 범위를 최소한으로 설정했습니다. 이사나 결혼 등 라이프스타일이 변경될 때마다 <strong class="text-highlight">추천</strong> 특약을 추가할 계획입니다.”</p>
+  </div>
+</section>
+
+<section id="무료견적신청" aria-label="무료 견적 신청">
+  <h2>아르카나 보험료 무료 견적 신청하기</h2>
+  <form action="/submit-estimate" method="POST" aria-describedby="견적폼설명">
+    <p id="견적폼설명">아래 폼을 작성해주시면 <strong>개인 맞춤형 아르카나 보험료 견적</strong>을 비교하여 가장 합리적인 가입 조건을 찾아드립니다. 고객님의 정보는 암호화되어 안전하게 처리됩니다. <a href="https://www.privacy.go.kr/index.do" target="_blank">개인정보보호위원회 (출처: 정부)</a></p>
+
+    <label for="이름">이름</label>
+    <input type="text" id="이름" name="name" placeholder="홍길동" required />
+
+    <label for="연락처">연락처</label>
+    <input type="tel" id="연락처" name="phone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+
+    <label for="생년월일">생년월일</label>
+    <input type="date" id="생년월일" name="birthdate" required />
+
+    <label for="성별">성별</label>
+    <select id="성별" name="gender" required>
+      <option value="">선택하세요</option>
+      <option value="남성">남성</option>
+      <option value="여성">여성</option>
+    </select>
+
+    <label for="흡연여부">흡연 여부</label>
+    <select id="흡연여부" name="smoking" required>
+      <option value="">선택하세요</option>
+      <option value="비흡연">비흡연 (1년 이내 금연 포함)</option>
+      <option value="흡연">흡연</option>
+    </select>
+
+    <label for="가입목적">가입 목적 (선택)</label>
+    <select id="가입목적" name="purpose">
+      <option value="">선택하세요</option>
+      <option value="저렴한_보험료">저렴한 보험료가 최우선</option>
+      <option value="최대_보장">최대 보장 범위가 최우선</option>
+      <option value="비교_견적">단순히 비교 견적만 받고 싶습니다</option>
+    </select>
+
+    <label for="갱신형선호">선호하는 보험 유형</label>
+    <select id="갱신형선호" name="renewal_preference" required>
+      <option value="">선택하세요</option>
+      <option value="비갱신형">비갱신형 (초기 보험료 높음)</option>
+      <option value="갱신형">갱신형 (초기 보험료 낮음)</option>
+    </select>
+
+    <label for="문의내용">궁금한 점 (자유롭게 작성)</label>
+    <textarea id="문의내용" name="message" rows="4" placeholder="특정 보장 내용이나 궁금한 점을 적어주세요."></textarea>
+
+    <button type="submit" class="cta">무료 견적 요청하기</button>
+  </form>
+</section>
+
+<section id="자주묻는질문" aria-label="자주 묻는 질문 FAQ">
+  <h2>자주 묻는 질문 (FAQ)</h2>
+  <dl class="faq">
+    <dt>아르카나 보험료는 갱신 시 얼마나 인상되나요?</dt>
+    <dd>갱신형 상품의 <strong class="text-highlight">아르카나 보험료 인상률</strong>은 보험사의 손해율에 따라 달라지며, 보통 3년 또는 5년 단위로 10~30% 인상될 수 있습니다. 비갱신형은 인상률이 0%입니다.</dd>
+
+    <dt>아르카나 보험의 <strong class="text-highlight">장단점</strong> 중 가장 중요한 것은 무엇인가요?</dt>
+    <dd>가장 큰 <strong class="text-highlight">장점</strong>은 유연한 특약 구성으로 개인에게 최적화된 보장이 가능하다는 점입니다. <strong class="text-highlight">단점</strong>은 상품이 복잡하여 가입자가 스스로 보장 내용을 정확히 파악하기 어렵다는 것입니다. 따라서 전문가의 도움을 받아 <a href="#무료견적신청">무료 견적</a>을 받는 것이 중요합니다.</dd>
+
+    <dt>다른 보험과 <strong class="text-highlight">아르카나 보험 비교</strong> 시 유의점은?</dt>
+    <dd>기존에 가입한 보험의 보장 내용과 중복되는 부분이 있는지 확인해야 합니다. 중복 보장이 되면 불필요한 보험료 낭비가 발생할 수 있습니다. <strong class="text-highlight">아르카나 보험료</strong>를 절약하려면 중복되는 특약을 삭제해야 합니다. <a href="http://www.kofia.or.kr/" target="_blank">생명보험협회</a> 등에서 중복 가입 여부를 확인할 수 있습니다.</dd>
+
+    <dt>비갱신형 가입 시 <strong class="text-highlight">아르카나 보험료</strong> 납입 기간을 짧게 하는 것이 좋을까요?</dt>
+    <dd>납입 기간을 짧게 하면 월 보험료는 비싸지지만, 총 납입 금액은 절감될 수 있습니다. <strong class="text-highlight">아르카나 보험료</strong> 납입 계획은 개인의 소득 상황과 재정 계획에 맞춰 신중하게 결정해야 합니다.</dd>
+    
+    <dt>2026년 <strong class="text-highlight">아르카나 보험료</strong> 예상 견적은?</dt>
+    <dd>정확한 <strong class="text-highlight">아르카나 보험료 예상</strong> 견적은 개인별 조건에 따라 다르지만, 30대 남성 비갱신형 기준으로 평균 7~10만원대가 형성될 것으로 예상됩니다. 상세한 견적은 <a href="#무료견적신청">견적 요청 폼</a>을 통해 문의해주세요.</dd>
+  </dl>
+</section>
+
+<section id="문의하기" aria-label="문의하기">
+  <h2>아르카나 보험료 상담 문의</h2>
+  <p><strong>010-1234-5678</strong> | <a href="mailto:info@yourdomain.kr">info@yourdomain.kr</a></p>
+  <p>상담 시간: 월~토 09:00~19:00 (일요일 휴무)</p>
+  <p>본 페이지는 <strong class="text-highlight">아르카나 보험료</strong>에 대한 정보를 제공하며, 특정 보험 상품의 판매를 목적으로 하지 않습니다. 정확한 견적은 상담을 통해 확인하시기 바랍니다.</p>
+</section>
+
+  
